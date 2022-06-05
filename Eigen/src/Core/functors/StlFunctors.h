@@ -74,6 +74,7 @@ struct functor_traits<std::not_equal_to<T> >
 
 #if (__cplusplus < 201103L) && (EIGEN_COMP_MSVC <= 1900)
 // std::binder* are deprecated since c++11 and will be removed in c++17
+// unary_negate and binary_negate are removed in c++17
 template<typename T>
 struct functor_traits<std::binder2nd<T> >
 { enum { Cost = functor_traits<T>::Cost, PacketAccess = false }; };
@@ -81,7 +82,6 @@ struct functor_traits<std::binder2nd<T> >
 template<typename T>
 struct functor_traits<std::binder1st<T> >
 { enum { Cost = functor_traits<T>::Cost, PacketAccess = false }; };
-#endif
 
 template<typename T>
 struct functor_traits<std::unary_negate<T> >
@@ -90,6 +90,7 @@ struct functor_traits<std::unary_negate<T> >
 template<typename T>
 struct functor_traits<std::binary_negate<T> >
 { enum { Cost = 1 + functor_traits<T>::Cost, PacketAccess = false }; };
+#endif
 
 #ifdef EIGEN_STDEXT_SUPPORT
 
